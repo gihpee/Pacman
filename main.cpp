@@ -32,7 +32,7 @@ void render(sf::RenderWindow& window, const Game& game)
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 800), "PacMan Game Clone", sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(800, 800), "PacMan by gihpee", sf::Style::Close);
     sf::Clock clock;
 
     Game game;

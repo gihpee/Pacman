@@ -49,6 +49,7 @@ public:
 		shape.setFillColor(sf::Color(255, 183, 174));
 		shape.setSize(sf::Vector2f(size, size));
 		shape.setPosition(sf::Vector2f(xPos, yPos));
+		window.draw(shape);
 	}
 };
 
@@ -65,9 +66,10 @@ public:
 		size = s;
 	}
 	void render(sf::RenderWindow& window) {
-		shape.setFillColor(sf::Color(255, 183, 174));
+		shape.setFillColor(sf::Color(255, 0, 0));
 		shape.setSize(sf::Vector2f(size, size));
 		shape.setPosition(sf::Vector2f(xPos, yPos));
+		window.draw(shape);
 	}
 };
 
@@ -77,6 +79,7 @@ protected:
 	int speed;
 	sf::Vector2i speedVec;
 	Direction direction;
+	sf::Texture texture;
 	sf::CircleShape shape;
 
 	//etc.
@@ -90,6 +93,11 @@ public:
 	}
 	sf::FloatRect getBounds() {
 		return shape.getGlobalBounds();
+	}
+	sf::FloatRect moveRect(sf::FloatRect rect1, sf::Vector2f movement) {
+		rect1.left += movement.x;
+		rect1.top += movement.y;
+		return rect1;
 	}
 	//setters, getters, etc. 
 };
