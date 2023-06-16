@@ -94,21 +94,22 @@ void Pacman::update(float elapsedTime, std::vector<sf::FloatRect> fields, std::v
 
     for (int i = 0; i < fields.size(); i++)
         if (moveRect(pacmanBounds, movement).intersects(fields[i])) {
-            if (direction == Direction::DOWN)
+            switch (direction)
             {
-                movement.y += -1;
-            }
-            else if (direction == Direction::UP)
-            {
+            case Direction::UP:
                 movement.y += 1;
-            }
-            else if (direction == Direction::LEFT)
-            {
+                break;
+            case Direction::DOWN:
+                movement.y -= 1;
+                break;
+            case Direction::LEFT:
                 movement.x += 1;
-            }
-            else if (direction == Direction::RIGHT)
-            {
-                movement.x += -1;
+                break;
+            case Direction::RIGHT:
+                movement.x -= 1;
+                break;
+            case Direction::NONE:
+                break;
             }
         }
 

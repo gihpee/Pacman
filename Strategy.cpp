@@ -1,15 +1,15 @@
 #include "Strategy.h"
 
-BlinkyS::BlinkyS() { this->name = 'B'; } 
+BlinkyS::BlinkyS() { this->name = 'B'; }
 
 sf::Vector2f BlinkyS::getMovement_scatter(Ghost* ghost)
 {
 	float x_g = ghost->getPos().x;
 	float y_g = ghost->getPos().y;
 
-	if (abs(25 * 32 - x_g) > abs(0 - y_g))
+	if (abs(19 * 44 - x_g) > abs(0 - y_g))
 	{
-		float cef = (25 * 32 - x_g) / abs(25 * 32 - x_g);
+		float cef = (19 * 44 - x_g) / abs(19 * 44 - x_g);
 		return sf::Vector2f(cef, 0);
 	}
 	else
@@ -19,7 +19,7 @@ sf::Vector2f BlinkyS::getMovement_scatter(Ghost* ghost)
 	}
 }
 
-sf::Vector2f BlinkyS::getMovement_chase(Ghost* ghost, Pacman* pacman) 
+sf::Vector2f BlinkyS::getMovement_chase(Ghost* ghost, Pacman* pacman)
 {
 	float x_p = pacman->getPos().x;
 	float y_p = pacman->getPos().y;
@@ -57,7 +57,7 @@ sf::Vector2f PinkyS::getMovement_scatter(Ghost* ghost)
 	}
 }
 
-sf::Vector2f PinkyS::getMovement_chase(Ghost* ghost, Pacman* pacman) 
+sf::Vector2f PinkyS::getMovement_chase(Ghost* ghost, Pacman* pacman)
 {
 	float x_p = pacman->getPos().x + 2;
 	float y_p = pacman->getPos().y + 2;
@@ -83,19 +83,19 @@ sf::Vector2f ClydeS::getMovement_scatter(Ghost* ghost)
 	float x_g = ghost->getPos().x;
 	float y_g = ghost->getPos().y;
 
-	if (abs(0 - x_g) > abs(25 * 32 - y_g))
+	if (abs(0 - x_g) > abs(19 * 44 - y_g))
 	{
 		float cef = (0 - x_g) / abs(0 - x_g);
 		return sf::Vector2f(cef, 0);
 	}
 	else
 	{
-		float cef = (25 * 32 - y_g) / abs(25 * 32 - y_g);
+		float cef = (19 * 44 - y_g) / abs(19 * 44 - y_g);
 		return sf::Vector2f(0, cef);
 	}
 }
 
-sf::Vector2f ClydeS::getMovement_chase(Ghost* ghost, Pacman* pacman) 
+sf::Vector2f ClydeS::getMovement_chase(Ghost* ghost, Pacman* pacman)
 {
 	float x_p = pacman->getPos().x;
 	float y_p = pacman->getPos().y;
@@ -104,7 +104,7 @@ sf::Vector2f ClydeS::getMovement_chase(Ghost* ghost, Pacman* pacman)
 
 	float dist = pow(pow(x_p - x_g, 2) + pow(y_p - y_g, 2), 0.5);
 
-	if (dist <= 8 * 32)
+	if (dist <= 8 * 44)
 	{
 		if (abs(x_p - x_g) > abs(y_p - y_g))
 		{
@@ -130,16 +130,17 @@ sf::Vector2f InkyS::getMovement_scatter(Ghost* ghost)
 	float x_g = ghost->getPos().x;
 	float y_g = ghost->getPos().y;
 
-	if (abs(25 * 32 - x_g) > abs(25 * 32 - y_g))
+	if (abs(19*44 - x_g) > abs(19 * 44 - y_g))
 	{
-		float cef = (25 * 32 - x_g) / abs(25 * 32 - x_g);
+		float cef = (19*44 - x_g) / abs(19*44 - x_g);
 		return sf::Vector2f(cef, 0);
 	}
 	else
 	{
-		float cef = (25 * 32 - y_g) / abs(25 * 32 - y_g);
+		float cef = (19 * 44 - y_g) / abs(19 * 44 - y_g);
 		return sf::Vector2f(0, cef);
 	}
+	
 }
 
 sf::Vector2f InkyS::getMovement_chase(Ghost* ghost, Pacman* pacman)

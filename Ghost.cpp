@@ -96,7 +96,7 @@ void Ghost::update(float elapsedTime, Pacman* pacman, std::vector<sf::FloatRect>
 		else
 		{	
 			//FRIGHTENED MODE
-			float step = 500.f * elapsedTime;
+			float step = 100.f * elapsedTime;
 			int rand_num = 1 + rand() % 4;
 
 			if (rand_num == 1)
@@ -166,23 +166,41 @@ void Ghost::update(float elapsedTime, Pacman* pacman, std::vector<sf::FloatRect>
 
 	const sf::FloatRect ghostBounds = shape.getGlobalBounds();
 
+	if (movement.y > 0)
+	{
+		direction = Direction::DOWN;
+	}
+	else if (movement.y < 0)
+	{
+		direction = Direction::UP;
+	}
+	else if (movement.x < 0)
+	{
+		direction = Direction::LEFT;
+	}
+	else if (movement.x > 0)
+	{
+		direction = Direction::RIGHT;
+	}
+
 	for (int i = 0; i < fields.size(); i++)
 		if (moveRect(ghostBounds, movement).intersects(fields[i])) {
-			if (direction == Direction::DOWN || movement.y > 0)
+			switch (direction)
 			{
-				movement.y -= 2;
-			}
-			else if (direction == Direction::UP || movement.y < 0)
-			{
-				movement.y += 2;
-			}
-			else if (direction == Direction::LEFT || movement.x < 0)
-			{
-				movement.x += 2;
-			}
-			else if (direction == Direction::RIGHT || movement.x > 0)
-			{
-				movement.x -= 2;
+			case Direction::UP:
+				movement.y += step;
+				break;
+			case Direction::DOWN:
+				movement.y -= step;
+				break;
+			case Direction::LEFT:
+				movement.x += step;
+				break;
+			case Direction::RIGHT:
+				movement.x -= step;
+				break;
+			case Direction::NONE:
+				break;
 			}
 		}
 
