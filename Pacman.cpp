@@ -1,5 +1,6 @@
 #include "Pacman.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 
 Pacman::Pacman(int xPos, int yPos)
@@ -10,6 +11,25 @@ Pacman::Pacman(int xPos, int yPos)
     texture.loadFromFile("C:/Users/gihpe/OneDrive/Рабочий стол/учеба/Pacman_Morychev/Pacman/data/Pacman_right.png");
     shape.setTexture(&texture);
     shape.setPosition(sf::Vector2f(xPos, yPos));
+
+    gumBuffer.loadFromFile("C:/Users/gihpe/OneDrive/Рабочий стол/учеба/Pacman_Morychev/Pacman/data/gum.wav");
+    gum = sf::Sound(gumBuffer);
+
+    startBuffer.loadFromFile("C:/Users/gihpe/OneDrive/Рабочий стол/учеба/Pacman_Morychev/Pacman/data/start.wav");
+    start = sf::Sound(startBuffer);
+    start.play();
+
+    superGumBuffer.loadFromFile("C:/Users/gihpe/OneDrive/Рабочий стол/учеба/Pacman_Morychev/Pacman/data/superGum.wav");
+    superGum = sf::Sound(superGumBuffer);
+
+    killBuffer.loadFromFile("C:/Users/gihpe/OneDrive/Рабочий стол/учеба/Pacman_Morychev/Pacman/data/kill.wav");
+    kill = sf::Sound(killBuffer);
+
+    winBuffer.loadFromFile("C:/Users/gihpe/OneDrive/Рабочий стол/учеба/Pacman_Morychev/Pacman/data/win.wav");
+    win = sf::Sound(winBuffer);
+
+    deathBuffer.loadFromFile("C:/Users/gihpe/OneDrive/Рабочий стол/учеба/Pacman_Morychev/Pacman/data/death.wav");
+    death = sf::Sound(deathBuffer);
 }
 
 void Pacman::updatePacmanDirection() {
@@ -105,14 +125,24 @@ void Pacman::update(float elapsedTime, std::vector<sf::FloatRect> fields, std::v
                     }
                 }
                 panel->score += 100;
+                superGum.play();
             }
             else
             {
                 panel->score += 10;
+                gum.play();
             }
             delete objects[i];
             objects.erase(objects.begin() + i);
         }
+
+    if (objects.size() == 0)
+    {
+        //выигрыш
+        win.play();
+        delete gstate;
+        gstate = new WinState();
+    }
 
     for (int i = 0; i < ghosts.size(); i++)
     {
@@ -123,12 +153,14 @@ void Pacman::update(float elapsedTime, std::vector<sf::FloatRect> fields, std::v
                 delete ghosts[i]->state;
                 ghosts[i]->state = new Eaten();
                 panel->score += 500;
+                kill.play();
             }
             //иначе - конец игры
             else
             {
                 if (!ghosts[i]->state->eaten())
-                {
+                {   
+                    death.play();
                     delete gstate;
                     gstate = new GameOverState();
                 }

@@ -105,6 +105,11 @@ void Game::render(sf::RenderWindow& window) const {
     }
 }
 
+bool Game::getState()
+{
+    return gstate->state;
+}
+
 
 
 	

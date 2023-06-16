@@ -3,6 +3,7 @@
 #include "Ghost.h"
 #include "UIPanel.h"
 #include "GameState.h"
+#include <SFML/Audio.hpp>
 //#include "Entity.h"
 
 class Ghost;
@@ -13,6 +14,23 @@ static const float PACKMAN_RADIUS = 16.f; // pixels
 
 class Pacman: public MovingEntity
 {
+	sf::SoundBuffer gumBuffer;
+	sf::Sound gum;
+
+	sf::SoundBuffer startBuffer;
+	sf::Sound start;
+
+	sf::SoundBuffer superGumBuffer;
+	sf::Sound superGum;
+
+	sf::SoundBuffer killBuffer;
+	sf::Sound kill;
+
+	sf::SoundBuffer winBuffer;
+	sf::Sound win;
+
+	sf::SoundBuffer deathBuffer;
+	sf::Sound death;
 public:
 	Pacman(int xPos, int yPos);
 

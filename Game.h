@@ -27,6 +27,7 @@ public:
 	std::vector<Cell> getCells();
 
 	Pacman getPacman();
+	bool getState();
 	void updateGame(float elapsedTime); // изменения координат объектов
 	void render(sf::RenderWindow& window) const; // отрисовка
 	~Game() = default;

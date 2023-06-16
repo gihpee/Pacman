@@ -42,6 +42,14 @@ int main()
         handleEvents(window);
         update(clock, game);
         render(window, game);
+
+        if (!game.getState())
+        {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+            {
+                game = *new Game;
+            }
+        }
     }
 
     return 0;
