@@ -23,6 +23,8 @@ public:
 	virtual sf::FloatRect getBounds() = 0;
 	//virtual void update() = 0;
 	virtual void render(sf::RenderWindow& window) = 0;
+	virtual bool isSuper() = 0;
+	~Entity() {}
 };
 
 class StaticEntity : public Entity {
@@ -33,6 +35,7 @@ public:
 	sf::FloatRect getBounds() override {
 		return shape.getGlobalBounds();
 	}
+	bool isSuper() override { return false; }
 };
 
 class PacGum : public StaticEntity
@@ -51,6 +54,8 @@ public:
 		shape.setPosition(sf::Vector2f(xPos, yPos));
 		window.draw(shape);
 	}
+	bool isSuper() override { return false; }
+	~PacGum() {}
 };
 
 
@@ -71,6 +76,8 @@ public:
 		shape.setPosition(sf::Vector2f(xPos, yPos));
 		window.draw(shape);
 	}
+	bool isSuper() override { return true; }
+	~SuperPacGum() {};
 };
 
 
@@ -99,5 +106,6 @@ public:
 		rect1.top += movement.y;
 		return rect1;
 	}
+	bool isSuper() override { return false; }
 	//setters, getters, etc. 
 };
