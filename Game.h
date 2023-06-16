@@ -5,6 +5,8 @@
 #include "Entity.h"
 #include "Ghost.h"
 #include "Cell.h"
+#include "UIPanel.h"
+#include "GameState.h"
 
 class Game
 {
@@ -14,6 +16,9 @@ class Game
 	std::vector<Ghost*> ghosts;
 	std::vector<Cell*> cells;
 	Pacman* pacman;
+	UIPanel* panel;
+	GameState* gstate;
+
 
 public:
 

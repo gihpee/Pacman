@@ -7,6 +7,8 @@ Pacman::Pacman(int xPos, int yPos)
     direction = Direction::NONE;
     shape.setRadius(PACKMAN_RADIUS);
     shape.setFillColor(PACKMAN_COLOR);
+    texture.loadFromFile("C:/Users/gihpe/OneDrive/Рабочий стол/учеба/Pacman_Morychev/Pacman/data/Pacman_right.png");
+    shape.setTexture(&texture);
     shape.setPosition(sf::Vector2f(xPos, yPos));
 }
 
@@ -16,25 +18,33 @@ void Pacman::updatePacmanDirection() {
         || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
         direction = Direction::UP;
+        texture.loadFromFile("C:/Users/gihpe/OneDrive/Рабочий стол/учеба/Pacman_Morychev/Pacman/data/Pacman_up.png");
+        shape.setTexture(&texture);
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)
         || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
         direction = Direction::DOWN;
+        texture.loadFromFile("C:/Users/gihpe/OneDrive/Рабочий стол/учеба/Pacman_Morychev/Pacman/data/Pacman_down.png");
+        shape.setTexture(&texture);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)
         || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
         direction = Direction::LEFT;
+        texture.loadFromFile("C:/Users/gihpe/OneDrive/Рабочий стол/учеба/Pacman_Morychev/Pacman/data/Pacman_left.png");
+        shape.setTexture(&texture);
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)
         || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
         direction = Direction::RIGHT;
+        texture.loadFromFile("C:/Users/gihpe/OneDrive/Рабочий стол/учеба/Pacman_Morychev/Pacman/data/Pacman_right.png");
+        shape.setTexture(&texture);
     }
 }
 
-void Pacman::update(float elapsedTime, std::vector<sf::FloatRect> fields, std::vector<Entity*>& objects, std::vector<Ghost*>& ghosts)
+void Pacman::update(float elapsedTime, std::vector<sf::FloatRect> fields, std::vector<Entity*>& objects, std::vector<Ghost*>& ghosts, UIPanel* &panel, GameState* &gstate)
 {
     const float step = PACKMAN_SPEED * elapsedTime;
 
@@ -94,6 +104,11 @@ void Pacman::update(float elapsedTime, std::vector<sf::FloatRect> fields, std::v
                         ghosts[j]->state->timerFrightenedMode();
                     }
                 }
+                panel->score += 100;
+            }
+            else
+            {
+                panel->score += 10;
             }
             delete objects[i];
             objects.erase(objects.begin() + i);
@@ -107,12 +122,30 @@ void Pacman::update(float elapsedTime, std::vector<sf::FloatRect> fields, std::v
             {
                 delete ghosts[i]->state;
                 ghosts[i]->state = new Eaten();
+                panel->score += 500;
             }
             //иначе - конец игры
+            else
+            {
+                if (!ghosts[i]->state->eaten())
+                {
+                    delete gstate;
+                    gstate = new GameOverState();
+                }
+            }
         }
     }
 
     shape.move(movement);
+
+    if (shape.getPosition().x < 0)
+    {
+        shape.setPosition(800 - abs(shape.getPosition().x), shape.getPosition().y);
+    }
+    else if (shape.getPosition().x > 800)
+    {
+        shape.setPosition(abs(800 - shape.getPosition().x), shape.getPosition().y);
+    }
 
 }
 

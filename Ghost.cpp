@@ -12,7 +12,7 @@ void Ghost::update(float elapsedTime, Pacman* pacman, std::vector<sf::FloatRect>
 	if (this->state->insideHouse() && (!this->state->eaten()))
 	{	
 		//HOUSE MODE
-		if (shape.getPosition().x != 12 * 32 + 4 && shape.getPosition().y > 7 * 32 + 4)
+		if (shape.getPosition().x != 9 * 44 + 6 && shape.getPosition().y > 10 * 44 + 6)
 		{
 			if (this->strategy->name == 'B' || this->strategy->name == 'I')
 			{
@@ -23,13 +23,13 @@ void Ghost::update(float elapsedTime, Pacman* pacman, std::vector<sf::FloatRect>
 				movement.x -= 2.f;
 			}
 		}
-		if (shape.getPosition().x == 12 * 32 + 4 && shape.getPosition().y > 7 * 32 + 4)
+		if (shape.getPosition().x == 9 * 44 + 6 && shape.getPosition().y > 10 * 44 + 6)
 			movement.y -= 2.f;
-		if (shape.getPosition().y == 7 * 32 + 4)
+		if (shape.getPosition().y == 10 * 44 + 6)
 		{
 			if (this->strategy->name == 'B')
 			{
-				if (shape.getPosition().x != 7 * 32 + 4)
+				if (shape.getPosition().x != 6 * 44 + 6)
 				{
 					movement.x -= 2.f;
 				}
@@ -41,7 +41,7 @@ void Ghost::update(float elapsedTime, Pacman* pacman, std::vector<sf::FloatRect>
 			}
 			if (this->strategy->name == 'I')
 			{
-				if (shape.getPosition().x != 9 * 32 + 4)
+				if (shape.getPosition().x != 8 * 44 + 6)
 				{
 					movement.x -= 2.f;
 				}
@@ -53,7 +53,7 @@ void Ghost::update(float elapsedTime, Pacman* pacman, std::vector<sf::FloatRect>
 			}
 			if (this->strategy->name == 'P')
 			{
-				if (shape.getPosition().x != 15 * 32 + 4)
+				if (shape.getPosition().x != 10 * 44 + 6)
 				{
 					movement.x += 2.f;
 				}
@@ -65,7 +65,7 @@ void Ghost::update(float elapsedTime, Pacman* pacman, std::vector<sf::FloatRect>
 			}
 			if (this->strategy->name == 'C')
 			{
-				if (shape.getPosition().x != 17 * 32 + 4)
+				if (shape.getPosition().x != 12 * 44 + 6)
 				{
 					movement.x += 2.f;
 				}
@@ -79,8 +79,11 @@ void Ghost::update(float elapsedTime, Pacman* pacman, std::vector<sf::FloatRect>
 		
 	}
 	else if (this->state->insideHouse() && this->state->eaten())
-	{
-		shape.setFillColor(sf::Color(190, 190, 190));
+	{	
+		//EATEN
+		//shape.setFillColor(sf::Color(190, 190, 190));
+		texture.loadFromFile("C:/Users/gihpe/OneDrive/Рабочий стол/учеба/Pacman_Morychev/Pacman/data/Dead.png");
+		shape.setTexture(&texture);
 	}
 	else if (this->state->superPacGumEaten())
 	{	
@@ -194,8 +197,10 @@ sf::Vector2f Ghost::getPos()
 Blinky::Blinky(int x, int y)
 {
 	shape.setPosition(sf::Vector2f(x, y));
-	shape.setRadius(12.f);
-	shape.setFillColor(sf::Color(255, 0, 0));
+	shape.setRadius(16.f);
+	//shape.setFillColor(sf::Color(255, 0, 0));
+	texture.loadFromFile("C:/Users/gihpe/OneDrive/Рабочий стол/учеба/Pacman_Morychev/Pacman/data/Blinky.png");
+	shape.setTexture(&texture);
 	strategy = new BlinkyS();
 	this->state = new House();
 }
@@ -203,8 +208,10 @@ Blinky::Blinky(int x, int y)
 Clyde::Clyde(int x, int y)
 {
 	shape.setPosition(sf::Vector2f(x, y));
-	shape.setRadius(12.f);
-	shape.setFillColor(sf::Color(255, 150, 0));
+	shape.setRadius(16.f);
+	//shape.setFillColor(sf::Color(255, 150, 0));
+	texture.loadFromFile("C:/Users/gihpe/OneDrive/Рабочий стол/учеба/Pacman_Morychev/Pacman/data/Clyde.png");
+	shape.setTexture(&texture);
 	strategy = new ClydeS();
 	this->state = new House();
 }
@@ -212,8 +219,10 @@ Clyde::Clyde(int x, int y)
 Inky::Inky(int x, int y)
 {
 	shape.setPosition(sf::Vector2f(x, y));
-	shape.setRadius(12.f);
-	shape.setFillColor(sf::Color(0, 0, 255));
+	shape.setRadius(16.f);
+	//shape.setFillColor(sf::Color(0, 0, 255));
+	texture.loadFromFile("C:/Users/gihpe/OneDrive/Рабочий стол/учеба/Pacman_Morychev/Pacman/data/Inky.png");
+	shape.setTexture(&texture);
 	strategy = new InkyS();
 	this->state = new House();
 }
@@ -221,8 +230,10 @@ Inky::Inky(int x, int y)
 Pinky::Pinky(int x, int y) 
 {
 	shape.setPosition(sf::Vector2f(x, y));
-	shape.setRadius(12.f);
-	shape.setFillColor(sf::Color(0, 160, 100));
+	shape.setRadius(16.f);
+	//shape.setFillColor(sf::Color(0, 160, 100));
+	texture.loadFromFile("C:/Users/gihpe/OneDrive/Рабочий стол/учеба/Pacman_Morychev/Pacman/data/Pinky.png");
+	shape.setTexture(&texture);
 	strategy = new PinkyS();
 	this->state = new House();
 }
